@@ -1,0 +1,11 @@
+# 專案進度
+
+## 2026-11-26 · v0.1
+
+- 使用 Codex 管理規劃、開發、測試、版本及部署。透過 GitHub 工作分支和 Pull Request 審查，維持零額外成本，優先使用 iPhone 或 iPad。
+- 核心引擎的原始提交為 `29798a16382c756b1f7ecc71491ce0916be88bfd`，位於 `feat/v0.1-solver`。Node.js 24.22.3 執行 `node --test --test-isolation=none`，31 項通過，0 項失敗，耗時 60.95 毫秒。
+- 已核對 `origin` 指向 `https://github.com/katgh731/futoshiki-pwa.git`，可讀取公開遠端的 `main`。Git HTTPS 推送收到 403，GitHub 回報拒絕帳戶 `katgh731` 的操作。GitHub 連接器建立分支和 Git tree 同樣收到 403，已安裝儲存庫搜尋亦未列出本專案。
+- 專案擁有人回報 ChatGPT Codex Connector 已出現在 Authorized GitHub Apps，但未出現在 Installed GitHub Apps。安裝前的檢查顯示 Connector 尚未取得此儲存庫的寫入權限。專案擁有人在 iPhone 的 GitHub 安裝頁選擇 Only select repositories，只選取本專案並完成授權。其後 Codex 確認擁有推送權限，GitHub 接受推送。
+- v0.1 工作分支已推送，並建立指向 `main` 的 [PR #1](https://github.com/katgh731/futoshiki-pwa/pull/1) 供審查。待辦為審查 v0.1，v0.2 尚未開始。
+
+[OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)
