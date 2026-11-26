@@ -45,6 +45,38 @@ if (result.status === 'unique') {
 | `multiple` | 已找到至少兩解 | 兩個不同棋盤 |
 | `unknown` | 搜尋尚未確認結果便用盡預算 | 零個或一個已找到的棋盤 |
 
+## v0.2 隨機出題
+
+```js
+import { generatePuzzle } from './src/generator.mjs';
+
+const result = generatePuzzle(9, { difficulty: 'hard' });
+if (result.status === 'generated') {
+  console.log(result.puzzle);
+}
+```
+
+出題器在裝置端隨機排列循環拉丁方陣的行、列和數字，選取各 `size` 條水平及垂直不等式，再按隨機次序移除數字線索。每次移除都須通過求解器的唯一解判定。若判為多解、無解或未能確認，便保留該線索。這個方法從循環方陣的排列取樣。
+
+| `difficulty` | 難度 | 保留的數字線索比例 |
+| --- | --- | --- |
+| `easy` | 簡單 | 65% |
+| `medium` | 中等（預設） | 45% |
+| `hard` | 困難 | 35% |
+
+數字線索數量向上取整。難度按數字線索密度估算，所有難度使用相同數量的不等式。玩家實際感受仍待遊戲介面完成後驗證。
+
+- 成功時回傳 `{ status: 'generated', puzzle, solution, difficulty, givensCount, nodesVisited, attempts }`。其中 `nodesVisited` 是最後一次唯一解驗證的搜尋節點數。
+- `maxAttempts` 為生成候選題目的次數上限，預設 8。每次最多檢查 `size²` 次線索移除。
+- `maxNodes` 是每次求解的搜尋節點上限，預設 1,000。預算內達不到難度線索數量時，回傳 `{ status: 'exhausted', attempts }`；上限為零時直接回傳 `attempts: 0`。
+- `random` 預設為 `Math.random`，可傳入回傳 `[0, 1)` 內數字的亂數函式以重現題目。格式非法時拋出 `TypeError`。
+
+使用以下指令測量 8×8、9×9 出題。每個尺寸及難度使用 100 個固定種子，另先暖機 10 次，報告成功數、耗盡數、嘗試次數和耗時。這是 Node.js 環境的測量。
+
+```sh
+node scripts/benchmark-generator.mjs
+```
+
 ## 執行測試
 
 使用 Node.js 22 或以上版本，無需安裝套件。
@@ -57,6 +89,5 @@ node --test --test-isolation=none
 
 ## 後續版本規劃
 
-- v0.2 在裝置端產生隨機題目，設計難度分級，經求解器證明唯一後才採用題目。
 - v0.3 建立繁體中文遊戲介面，支援觸控及鍵盤，並驗證不同螢幕尺寸。
 - v0.4 加入 PWA 安裝、離線快取和 GitHub Pages 部署，實測各目標平台。
