@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>不等式數獨</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./src/game.mjs"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>不等式數獨</h1>
+      <p>每行每列填入不重複的數字。尖端指向較小的數字。</p>
+    </header>
+    <form id="settings">
+      <label>棋盤
+        <select id="size">
+          <option value="4">4×4</option><option value="5">5×5</option>
+          <option value="6">6×6</option><option value="7">7×7</option>
+          <option value="8">8×8</option><option value="9">9×9</option>
+        </select>
+      </label>
+      <label>難度
+        <select id="difficulty">
+          <option value="easy">簡單</option><option value="medium" selected>中等</option>
+          <option value="hard">困難</option>
+        </select>
+      </label>
+      <button class="primary">新題目</button>
+    </form>
+    <section class="play" aria-label="遊戲區">
+      <div id="board" aria-label="棋盤"></div>
+      <div id="keypad" aria-label="數字輸入"></div>
+      <button id="check" type="button" disabled>檢查答案</button>
+      <p id="status" role="status"></p>
+    </section>
+  </main>
+</body>
+</html>
