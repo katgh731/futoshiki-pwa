@@ -16,6 +16,12 @@
 - 已完成 4×4 至 9×9 裝置端隨機出題。只有求解器證明為唯一解且達到指定線索數量的題目才會交付。簡單、中等、困難分別保留 65%、45%、35% 的數字線索，實際遊玩難度留待介面完成後驗證。
 - Node.js 24.22.3 正式測試 53 項通過、0 項失敗，耗時 188.56 毫秒。
 - 8×8 和 9×9 各三個難度，每組 100 個固定種子，共 600 道全部成功。8×8 的 p95 依序為 1.59、1.20、1.98 毫秒，9×9 為 1.14、1.57、5.92 毫秒。使用 `node scripts/benchmark-generator.mjs` 可重跑。手機瀏覽器耗時尚未測量。
-- 待辦為審查 v0.2，後續版本再加入繁體中文觸控及鍵盤介面。
+- [PR #2](https://github.com/katgh731/futoshiki-pwa/pull/2) 待審查。
+
+## v0.3 · 遊戲介面
+
+- 已完成繁體中文靜態介面，提供 4×4 至 9×9、簡單／中等／困難、按鈕及鍵盤輸入與答案檢查。
+- 53 項測試全部通過，耗時 189.65 毫秒。另以 DOM 事件模擬驗證 18 種尺寸與難度組合的出題及答題流程。
+- 雲端預覽服務因無法監聽連接埠而未能啟動。實際瀏覽器版面、觸控及跨裝置測試待驗證。
 
 [OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)
