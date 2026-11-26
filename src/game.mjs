@@ -131,3 +131,9 @@ check.addEventListener('click', () => {
 });
 
 newPuzzle();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(error => {
+    console.warn('離線快取未能啟用', error);
+  });
+}

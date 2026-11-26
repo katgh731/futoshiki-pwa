@@ -93,6 +93,8 @@ node --test --test-isolation=none
 
 選擇 4×4 至 9×9 棋盤及簡單、中等、困難，再按「新題目」。點選格子後可用數字按鈕填寫或清除。鍵盤可用方向鍵移動、數字鍵填寫，以及 Backspace、Delete 或 0 清除。填完後按「檢查答案」。
 
-## 後續版本規劃
+## v0.4 PWA 與 GitHub Pages
 
-- v0.4 加入 PWA 安裝、離線快取和 GitHub Pages 部署，實測各目標平台。
+GitHub Pages 使用儲存庫的 **Settings → Pages → Deploy from a branch**，選擇 `main` 及 `/(root)`。部署完成後可使用 `https://katgh731.github.io/futoshiki-pwa/`。安裝入口由瀏覽器提供。iPhone 或 iPad 可在 Safari 使用分享選單的「加入主畫面」。
+
+首次須透過 HTTPS 或本機的 `localhost` 開啟，讓 Service Worker 安裝並快取遊戲檔案。完成後可斷線重新開啟首頁及產生新題目。修改快取檔案時，請同步更新 `sw.js` 的快取版本。安裝圖示目前為基本棋格，留待美術階段調整。
