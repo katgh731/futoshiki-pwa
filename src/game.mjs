@@ -1,5 +1,6 @@
 import { generatePuzzle } from './generator.mjs';
 import { handwrittenDigit } from './handwriting.mjs';
+import { playPencilSound } from './pencil-audio.mjs';
 
 const settings = document.querySelector('#settings');
 const board = document.querySelector('#board');
@@ -31,8 +32,22 @@ function selectCell(row, col, focus = false) {
 function updateCell(row, col, cell, animate = false) {
   const value = entries[row][col];
   const incorrect = value !== 0 && value !== solution[row][col];
-  cell.replaceChildren();
-  if (value) cell.append(handwrittenDigit(value, animate));
+  const previousDigit = cell.firstElementChild;
+  if (!value && animate && previousDigit) {
+    if (cell.classList.contains('incorrect')) previousDigit.classList.add('erasing-error');
+    previousDigit.classList.remove('writing');
+    previousDigit.classList.add('erasing');
+    const animations = previousDigit.getAnimations();
+    if (animations.length) {
+      Promise.allSettled(animations.map(animation => animation.finished))
+        .then(() => previousDigit.remove());
+    } else {
+      previousDigit.remove();
+    }
+  } else {
+    cell.replaceChildren();
+    if (value) cell.append(handwrittenDigit(value, animate));
+  }
   cell.classList.toggle('incorrect', incorrect);
   const kind = puzzle.givens[row][col] ? '題目線索' : '可填寫';
   cell.setAttribute('aria-label', `第 ${row + 1} 行第 ${col + 1} 列，${kind}，${value || '空格'}${incorrect ? '，答案錯誤' : ''}`);
@@ -45,9 +60,14 @@ function enterValue(value) {
     status.textContent = '請選擇可填寫的格子。';
     return;
   }
+  if (!value && !entries[row][col]) return;
   entries[row][col] = value;
   const cell = cells[row][col];
   updateCell(row, col, cell, true);
+  if (value) {
+    const count = cell.querySelectorAll('path').length;
+    playPencilSound(count === 1 ? 0.5 : 0.8);
+  }
   status.textContent = '';
   if (entries.every((row, r) => row.every((entry, c) => entry === solution[r][c]))) {
     finished = true;
@@ -109,7 +129,7 @@ function drawPuzzle() {
       button.setAttribute('aria-label', String(value));
       button.append(handwrittenDigit(value));
     } else {
-      button.textContent = '清除';
+      button.textContent = '擦除';
     }
     button.addEventListener('click', () => enterValue(value));
     keypad.append(button);

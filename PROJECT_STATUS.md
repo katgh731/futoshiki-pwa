@@ -44,4 +44,8 @@
 
 - 依參考圖加入自製白色纖維紙紋和原創手寫 1–9 筆畫。填數時播放筆順動畫，尊重系統的減少動態設定。紙紋與字形已納入離線快取，Chromium 已驗證離線載入。
 
+- [PR #6](https://github.com/katgh731/futoshiki-pwa/pull/6) 已合併至 `main`（`55ef4b1`），並確認 GitHub Pages 的公開首頁、紙紋、字形、樣式與 Service Worker 符合此次發布版本。iPhone 實玩待確認。
+
+- 放大棋盤手寫數字、將落筆動畫時間加倍，並加入離線可用的紙筆音效與擦除動畫。減少動態時直接顯示或移除數字。
+
 [OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)
