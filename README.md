@@ -97,4 +97,4 @@ node --test --test-isolation=none
 
 GitHub Pages 使用儲存庫的 **Settings → Pages → Deploy from a branch**，選擇 `main` 及 `/(root)`。部署完成後可使用 `https://katgh731.github.io/futoshiki-pwa/`。安裝入口由瀏覽器提供。iPhone 或 iPad 可在 Safari 使用分享選單的「加入主畫面」。
 
-首次須透過 HTTPS 或本機的 `localhost` 開啟，讓 Service Worker 安裝並快取遊戲檔案。完成後可斷線重新開啟首頁及產生新題目。修改快取檔案時，請同步更新 `sw.js` 的快取版本。安裝圖示目前為基本棋格，留待美術階段調整。
+首次須透過 HTTPS 或本機的 `localhost` 開啟，讓 Service Worker 安裝並快取遊戲檔案。完成後可斷線重新開啟首頁及產生新題目。修改快取檔案時，請同步更新 `sw.js` 的快取版本。安裝圖示採用與介面一致的墨藍底、暖白棋格和橙色標記。

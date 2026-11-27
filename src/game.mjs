@@ -1,4 +1,5 @@
 import { generatePuzzle } from './generator.mjs';
+import { handwrittenDigit } from './handwriting.mjs';
 
 const settings = document.querySelector('#settings');
 const board = document.querySelector('#board');
@@ -27,10 +28,11 @@ function selectCell(row, col, focus = false) {
   if (focus) cell.focus();
 }
 
-function updateCell(row, col, cell) {
+function updateCell(row, col, cell, animate = false) {
   const value = entries[row][col];
   const incorrect = value !== 0 && value !== solution[row][col];
-  cell.textContent = value || '';
+  cell.replaceChildren();
+  if (value) cell.append(handwrittenDigit(value, animate));
   cell.classList.toggle('incorrect', incorrect);
   const kind = puzzle.givens[row][col] ? '題目線索' : '可填寫';
   cell.setAttribute('aria-label', `第 ${row + 1} 行第 ${col + 1} 列，${kind}，${value || '空格'}${incorrect ? '，答案錯誤' : ''}`);
@@ -44,15 +46,27 @@ function enterValue(value) {
     return;
   }
   entries[row][col] = value;
-  updateCell(row, col, cells[row][col]);
+  const cell = cells[row][col];
+  updateCell(row, col, cell, true);
   status.textContent = '';
   if (entries.every((row, r) => row.every((entry, c) => entry === solution[r][c]))) {
     finished = true;
     for (const cell of cells.flat()) cell.disabled = true;
     for (const button of keypad.children) button.disabled = true;
     status.textContent = '你解開了這道題！';
-    completion.returnValue = 'stay';
-    completion.showModal();
+    const completedPuzzle = puzzle;
+    const strokes = [...cell.querySelectorAll('path')];
+    const animations = strokes.flatMap(stroke => stroke.getAnimations());
+    const showCompletion = () => {
+      if (puzzle !== completedPuzzle) return;
+      completion.returnValue = 'stay';
+      completion.showModal();
+    };
+    if (animations.length) {
+      Promise.allSettled(animations.map(animation => animation.finished)).then(showCompletion);
+    } else {
+      showCompletion();
+    }
   }
 }
 
@@ -91,7 +105,12 @@ function drawPuzzle() {
   for (const value of [...Array.from({ length: size }, (_, index) => index + 1), 0]) {
     const button = document.createElement('button');
     button.type = 'button';
-    button.textContent = value || '清除';
+    if (value) {
+      button.setAttribute('aria-label', String(value));
+      button.append(handwrittenDigit(value));
+    } else {
+      button.textContent = '清除';
+    }
     button.addEventListener('click', () => enterValue(value));
     keypad.append(button);
   }
