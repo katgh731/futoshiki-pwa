@@ -24,8 +24,7 @@ function createCandidate(size, random) {
   const cols = shuffle(indices.slice(), random);
   const symbols = shuffle(indices.map(index => index + 1), random);
   const givens = rows.map(row => cols.map(col => symbols[(row + col) % size]));
-  const horizontal = [];
-  const vertical = [];
+  const inequalities = [];
 
   function edge(row, col, nextRow, nextCol) {
     const first = [row, col];
@@ -38,15 +37,11 @@ function createCandidate(size, random) {
 
   for (const row of indices) {
     for (const col of indices) {
-      if (col + 1 < size) horizontal.push(edge(row, col, row, col + 1));
-      if (row + 1 < size) vertical.push(edge(row, col, row + 1, col));
+      if (col + 1 < size) inequalities.push(edge(row, col, row, col + 1));
+      if (row + 1 < size) inequalities.push(edge(row, col, row + 1, col));
     }
   }
 
-  const inequalities = [
-    ...shuffle(horizontal, random).slice(0, size),
-    ...shuffle(vertical, random).slice(0, size),
-  ];
   return { size, givens, inequalities };
 }
 

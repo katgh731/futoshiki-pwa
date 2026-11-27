@@ -1,13 +1,15 @@
 import { generatePuzzle } from './generator.mjs';
-import { validateSolution } from './solver.mjs';
 
 const settings = document.querySelector('#settings');
 const board = document.querySelector('#board');
 const keypad = document.querySelector('#keypad');
-const check = document.querySelector('#check');
+const completion = document.querySelector('#completion');
+const newButton = document.querySelector('#new-puzzle');
 const status = document.querySelector('#status');
 
 let puzzle;
+let solution;
+let finished = false;
 let entries;
 let cells;
 let selected;
@@ -27,12 +29,15 @@ function selectCell(row, col, focus = false) {
 
 function updateCell(row, col, cell) {
   const value = entries[row][col];
+  const incorrect = value !== 0 && value !== solution[row][col];
   cell.textContent = value || '';
+  cell.classList.toggle('incorrect', incorrect);
   const kind = puzzle.givens[row][col] ? '題目線索' : '可填寫';
-  cell.setAttribute('aria-label', `第 ${row + 1} 行第 ${col + 1} 列，${kind}，${value || '空格'}`);
+  cell.setAttribute('aria-label', `第 ${row + 1} 行第 ${col + 1} 列，${kind}，${value || '空格'}${incorrect ? '，答案錯誤' : ''}`);
 }
 
 function enterValue(value) {
+  if (finished) return;
   const [row, col] = selected;
   if (puzzle.givens[row][col]) {
     status.textContent = '請選擇可填寫的格子。';
@@ -41,10 +46,19 @@ function enterValue(value) {
   entries[row][col] = value;
   updateCell(row, col, cells[row][col]);
   status.textContent = '';
+  if (entries.every((row, r) => row.every((entry, c) => entry === solution[r][c]))) {
+    finished = true;
+    for (const cell of cells.flat()) cell.disabled = true;
+    for (const button of keypad.children) button.disabled = true;
+    status.textContent = '你解開了這道題！';
+    completion.returnValue = 'stay';
+    completion.showModal();
+  }
 }
 
 function drawPuzzle() {
   const { size, givens, inequalities } = puzzle;
+  finished = false;
   entries = givens.map(row => row.slice());
   board.replaceChildren();
   keypad.replaceChildren();
@@ -83,7 +97,6 @@ function drawPuzzle() {
   }
   const firstRow = givens.findIndex(row => row.includes(0));
   selectCell(firstRow, givens[firstRow].indexOf(0));
-  check.disabled = false;
 }
 
 function newPuzzle() {
@@ -95,6 +108,7 @@ function newPuzzle() {
     return;
   }
   puzzle = result.puzzle;
+  solution = result.solution;
   drawPuzzle();
   status.textContent = '新題目已準備好。';
 }
@@ -105,7 +119,7 @@ settings.addEventListener('submit', event => {
 });
 
 board.addEventListener('keydown', event => {
-  if (!selected || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (finished || !selected || event.altKey || event.ctrlKey || event.metaKey) return;
   const directions = { ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1] };
   const direction = directions[event.key];
   if (direction) {
@@ -122,12 +136,9 @@ board.addEventListener('keydown', event => {
   }
 });
 
-check.addEventListener('click', () => {
-  if (entries.some(row => row.includes(0))) {
-    status.textContent = '棋盤還有空格。';
-  } else {
-    status.textContent = validateSolution(puzzle, entries) ? '你解開了這道題！' : '答案有誤，請再檢查。';
-  }
+completion.addEventListener('close', () => {
+  if (completion.returnValue === 'new') newPuzzle();
+  newButton.focus();
 });
 
 newPuzzle();

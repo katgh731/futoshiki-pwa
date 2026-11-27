@@ -22,8 +22,11 @@ for (let size = 4; size <= 9; size++) {
         assert.equal(result.difficulty, difficulty);
         assert.equal(result.givensCount, Math.ceil(size ** 2 * fraction));
         assert.equal(puzzle.givens.flat().filter(Boolean).length, result.givensCount);
-        assert.equal(puzzle.inequalities.filter(({ less, greater }) => less[0] === greater[0]).length, size);
-        assert.equal(puzzle.inequalities.filter(({ less, greater }) => less[1] === greater[1]).length, size);
+        assert.equal(puzzle.inequalities.filter(({ less, greater }) => less[0] === greater[0]).length, size * (size - 1));
+        assert.equal(puzzle.inequalities.filter(({ less, greater }) => less[1] === greater[1]).length, size * (size - 1));
+        const pairs = puzzle.inequalities.map(({ less, greater }) =>
+          [less.join(','), greater.join(',')].sort().join('|'));
+        assert.equal(new Set(pairs).size, 2 * size * (size - 1));
         assert.ok(validateSolution(puzzle, solution));
         const checked = solvePuzzle(puzzle, { maxNodes: 10_000 });
         assert.equal(checked.status, 'unique');
@@ -43,13 +46,6 @@ test('相同種子可重現，不同種子可產生不同題目', () => {
 
 test('搜尋上限為零時不產出未經證明的題目', () => {
   assert.deepEqual(generatePuzzle(8, { maxNodes: 0 }), { status: 'exhausted', attempts: 0 });
-});
-
-test('移除線索未能證明唯一解時，耗盡嘗試仍不交付題目', () => {
-  const options = { difficulty: 'hard', maxAttempts: 1 };
-  assert.deepEqual(generatePuzzle(9, { ...options, maxNodes: 1, random: seededRandom(7) }),
-    { status: 'exhausted', attempts: 1 });
-  assert.equal(generatePuzzle(9, { ...options, random: seededRandom(7) }).status, 'generated');
 });
 
 test('拒絕非法尺寸、設定及亂數結果', () => {

@@ -30,14 +30,21 @@
           <option value="hard">困難</option>
         </select>
       </label>
-      <button class="primary">新題目</button>
+      <button id="new-puzzle" class="primary">新題目</button>
     </form>
     <section class="play" aria-label="遊戲區">
       <div id="board" aria-label="棋盤"></div>
       <div id="keypad" aria-label="數字輸入"></div>
-      <button id="check" type="button" disabled>檢查答案</button>
       <p id="status" role="status"></p>
     </section>
+    <dialog id="completion" aria-labelledby="completion-title">
+      <h2 id="completion-title">恭喜，成功解題！</h2>
+      <p>要開始新題目嗎？</p>
+      <form method="dialog">
+        <button value="stay" autofocus>暫時不要</button>
+        <button value="new" class="primary">開始新題目</button>
+      </form>
+    </dialog>
   </main>
 </body>
 </html>

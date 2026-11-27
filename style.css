@@ -54,3 +54,15 @@ button:disabled { opacity: .5; cursor: default; }
 #keypad { justify-content: center; margin-bottom: 12px; }
 #keypad button { min-width: 44px; }
 #status { min-height: 1.5em; margin: 10px 0 0; }
+.cell.incorrect { color: #b42318; }
+.cell:disabled { opacity: 1; }
+dialog {
+  width: min(100% - 32px, 360px);
+  border: 1px solid #b1cbbf;
+  border-radius: 16px;
+  padding: 24px;
+  color: inherit;
+}
+dialog::backdrop { background: rgb(22 50 46 / 55%); }
+dialog h2 { margin: 0; }
+dialog form { justify-content: flex-end; margin: 0; padding: 0; }

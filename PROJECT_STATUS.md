@@ -28,6 +28,12 @@
 
 - [PR #3](https://github.com/katgh731/futoshiki-pwa/pull/3) 已改以 `main` 為基底。
 - 已加入 PWA manifest、暫用安裝圖示、Service Worker 及 GitHub Pages 靜態設定。53 項自動化測試通過，另模擬根目錄和 GitHub Pages 子路徑的快取安裝、離線載入及舊版本清理。
-- 待辦為審查介面與 PWA 變更、部署 GitHub Pages、以實際裝置確認安裝及離線流程，再進入美術設計。
+- PR #3、#4 已合併至 `main`，PWA 合併提交為 `0650547`。2026-11-27 已啟用 GitHub Pages（`main` 的根目錄），並確認公開首頁及全部 PWA 資產回傳 HTTP 200。待辦為在 iPhone 實測加入主畫面與離線開新題，再進入美術設計。
+- [已部署的遊戲](https://katgh731.github.io/futoshiki-pwa/)
+
+## 遊戲操作調整
+
+- 每對水平或垂直相鄰格均顯示不等號，出題仍逐步驗證唯一解。
+- 填錯即以紅字提示，全盤答對自動鎖定棋盤並詢問是否開新題。已更新離線快取版本。
 
 [OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)
