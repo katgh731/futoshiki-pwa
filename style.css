@@ -135,10 +135,11 @@ dialog form { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8p
   stroke-linejoin: round;
 }
 .cell .digit {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  width: 80%;
+  height: 80%;
+  max-width: 80%;
+  max-height: 80%;
+  overflow: hidden;
 }
 #keypad .digit { height: 1.55em; margin-inline: auto; }
 @media (prefers-reduced-motion: no-preference) {
