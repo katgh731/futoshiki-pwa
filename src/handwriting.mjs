@@ -15,7 +15,7 @@ const strokes = [
 export function handwrittenDigit(value, animate = false) {
   const namespace = 'http://www.w3.org/2000/svg';
   const svg = document.createElementNS(namespace, 'svg');
-  svg.setAttribute('viewBox', '0 0 32 34');
+  svg.setAttribute('viewBox', '4 1 24 32');
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
   svg.setAttribute('class', animate ? 'digit writing' : 'digit');

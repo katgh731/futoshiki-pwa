@@ -1,6 +1,6 @@
 const scope = self.registration.scope;
 const CACHE_PREFIX = 'futoshiki-app-' + scope + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v4';
+const CACHE_NAME = CACHE_PREFIX + 'v5';
 const home = new URL('./index.html', scope).href;
 const files = [
   './index.html',
@@ -8,6 +8,7 @@ const files = [
   './assets/paper.webp',
   './src/game.mjs',
   './src/handwriting.mjs',
+  './src/pencil-audio.mjs',
   './src/generator.mjs',
   './src/solver.mjs',
   './manifest.webmanifest',
