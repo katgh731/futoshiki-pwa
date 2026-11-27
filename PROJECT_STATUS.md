@@ -42,4 +42,6 @@
 - 第一版採用暖白紙面、墨藍及橙色。重新設計棋盤、設定、數字鍵盤、完成視窗及安裝圖示，並更新離線快取版本。
 - 52 項自動化測試全數通過。Chromium 驗證 320、390、768、1440 像素寬度下的 4×4 至 9×9 共 24 組版面。
 
+- 依參考圖加入自製白色纖維紙紋和原創手寫 1–9 筆畫。填數時播放筆順動畫，尊重系統的減少動態設定。紙紋與字形已納入離線快取，Chromium 已驗證離線載入。
+
 [OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)

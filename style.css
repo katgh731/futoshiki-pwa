@@ -12,9 +12,11 @@
 }
 * { box-sizing: border-box; }
 body {
+  display: flow-root;
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(ellipse at top, #fff8eb, transparent 65%);
+  background: linear-gradient(#fff9f0a6, #fff9f0a6), url("./assets/paper.webp") repeat;
+  background-size: auto, 480px 480px;
 }
 main { width: min(100% - 24px, 880px); margin: clamp(20px, 6vw, 68px) auto; }
 .intro { padding: 0 4px 18px; }
@@ -114,4 +116,32 @@ dialog form { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8p
 @media (min-width: 760px) {
   .game-layout { grid-template-columns: minmax(150px, 210px) minmax(0, 1fr); gap: 24px; }
   #settings { grid-template-columns: 1fr; padding: 16px; gap: 12px; }
+}
+
+.digit {
+  display: block;
+  width: auto;
+  height: 1.22em;
+  max-width: 82%;
+  max-height: 86%;
+  overflow: visible;
+  pointer-events: none;
+}
+.digit path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#keypad .digit { height: 1.55em; margin-inline: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .writing path {
+    stroke-dasharray: 1;
+    animation: write-digit 250ms ease-out calc(var(--stroke-index) * 150ms) both;
+  }
+}
+@keyframes write-digit {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
 }
