@@ -1,6 +1,6 @@
 const scope = self.registration.scope;
 const CACHE_PREFIX = 'futoshiki-app-' + scope + ':';
-const CACHE_NAME = CACHE_PREFIX + 'v2';
+const CACHE_NAME = CACHE_PREFIX + 'v3';
 const home = new URL('./index.html', scope).href;
 const files = [
   './index.html',

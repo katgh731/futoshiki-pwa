@@ -28,12 +28,18 @@
 
 - [PR #3](https://github.com/katgh731/futoshiki-pwa/pull/3) 已改以 `main` 為基底。
 - 已加入 PWA manifest、暫用安裝圖示、Service Worker 及 GitHub Pages 靜態設定。53 項自動化測試通過，另模擬根目錄和 GitHub Pages 子路徑的快取安裝、離線載入及舊版本清理。
-- PR #3、#4 已合併至 `main`，PWA 合併提交為 `0650547`。2026-11-27 已啟用 GitHub Pages（`main` 的根目錄），並確認公開首頁及全部 PWA 資產回傳 HTTP 200。待辦為在 iPhone 實測加入主畫面與離線開新題，再進入美術設計。
+- PR #3、#4 已合併至 `main`，PWA 合併提交為 `0650547`。2026-11-27 已啟用 GitHub Pages（`main` 的根目錄），並確認公開首頁及全部 PWA 資產回傳 HTTP 200。專案擁有人已在 iPhone 實測加入主畫面及斷網開新題，兩項均通過。基本架構已完成驗收，可進入美術設計。
 - [已部署的遊戲](https://katgh731.github.io/futoshiki-pwa/)
 
 ## 遊戲操作調整
 
 - 每對水平或垂直相鄰格均顯示不等號，出題仍逐步驗證唯一解。
 - 填錯即以紅字提示，全盤答對自動鎖定棋盤並詢問是否開新題。已更新離線快取版本。
+- PR #5 已合併至 `main`（`84f88d7`）並由 GitHub Pages 發布。公開網站 18 組尺寸與難度通過 Chromium 觸控模擬，另通過斷網重載及產生 9×9 困難題。專案擁有人已在公開遊戲實測，確認全部相鄰格不等號、錯誤數字紅字，以及全盤答對後的完成視窗。
+
+## 美術設計
+
+- 第一版採用暖白紙面、墨藍及橙色。重新設計棋盤、設定、數字鍵盤、完成視窗及安裝圖示，並更新離線快取版本。
+- 52 項自動化測試全數通過。Chromium 驗證 320、390、768、1440 像素寬度下的 4×4 至 9×9 共 24 組版面。
 
 [OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)
