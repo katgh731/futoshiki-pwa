@@ -1,6 +1,5 @@
 import { generatePuzzle } from './generator.mjs';
 import { handwrittenDigit } from './handwriting.mjs';
-import { playPencilSound } from './pencil-audio.mjs';
 
 const settings = document.querySelector('#settings');
 const board = document.querySelector('#board');
@@ -64,10 +63,6 @@ function enterValue(value) {
   entries[row][col] = value;
   const cell = cells[row][col];
   updateCell(row, col, cell, true);
-  if (value) {
-    const count = cell.querySelectorAll('path').length;
-    playPencilSound(count === 1 ? 0.5 : 0.8);
-  }
   status.textContent = '';
   if (entries.every((row, r) => row.every((entry, c) => entry === solution[r][c]))) {
     finished = true;

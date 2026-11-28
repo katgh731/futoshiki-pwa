@@ -48,6 +48,6 @@
 
 - 放大棋盤手寫數字、將落筆動畫時間加倍，並加入離線可用的紙筆音效與擦除動畫。減少動態時直接顯示或移除數字。
 
-- iPhone 實玩回報手寫與擦除動畫節奏合適。棋盤數字限制於格內寬高 80% 以內。寫字音效及擦除音效等專案擁有人提供素材。
+- iPhone 實玩回報手寫與擦除動畫節奏合適。棋盤數字限制於格內寬高 80% 以內。專案擁有人試聽後決定全程靜音。已移除寫字音訊程式及預快取項目，填寫與擦除的視覺動畫照常播放。
 
 [OpenAI Codex Cloud 指南](https://help.openai.com/en/articles/20001545-using-codex-cloud) · [GitHub App 安裝指南](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party)
